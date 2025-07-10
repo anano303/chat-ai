@@ -1,25 +1,22 @@
 import { Injectable } from '@angular/core';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AiService {
-  private genAI: GoogleGenerativeAI;
-  private model: any;
+  private apiUrl = '/api/chat';
 
-  constructor() {
-    // API key from environment
-    const apiKey = 'AIzaSyCY_-AlkICTyi-ihkZ5hT4JSwYDgOczjns';
-    this.genAI = new GoogleGenerativeAI(apiKey);
-    this.model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-  }
+  constructor(private http: HttpClient) {}
 
   async generateResponse(prompt: string): Promise<string> {
     try {
-      const result = await this.model.generateContent(prompt);
-      const response = await result.response;
-      return response.text();
+      const response = await firstValueFrom(
+        this.http.post<{ response: string }>(this.apiUrl, { prompt })
+      );
+
+      return response.response || '';
     } catch (error) {
       console.error('AI Error:', error);
       throw new Error('AI-სთან კავშირის პრობლემა');
