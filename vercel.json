@@ -10,14 +10,14 @@
       "use": "@vercel/node"
     }
   ],
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/index.html" }
-  ],
-  "env": {
-    "GOOGLE_AI_API_KEY": "@google_ai_api_key"
-  }
-}
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/dist/chat-ai/$1"
     }
   ],
   "rewrites": [
