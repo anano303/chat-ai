@@ -1,0 +1,46 @@
+<div class="chat-container">
+  <div class="chat-header">
+    <h2>🤖 AI ჩათი</h2>
+  </div>
+
+  <div class="chat-messages">
+    @for (message of messages(); track message.timestamp) {
+    <div class="message" [class.user-message]="message.isUser">
+      <div class="message-content">
+        <p>{{ message.text }}</p>
+        <span class="timestamp">{{ message.timestamp | date : "short" }}</span>
+      </div>
+    </div>
+    } @if (isLoading()) {
+    <div class="message ai-message">
+      <div class="message-content">
+        <div class="typing-indicator">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
+  <div class="chat-input">
+    <div class="input-container">
+      <textarea
+        [(ngModel)]="currentMessage"
+        (keypress)="onKeyPress($event)"
+        placeholder="დაწერეთ თქვენი შეკითხვა..."
+        rows="1"
+        [disabled]="isLoading()"
+      >
+      </textarea>
+      <button
+        (click)="sendMessage()"
+        [disabled]="!currentMessage().trim() || isLoading()"
+        class="send-button"
+      >
+        📤
+      </button>
+    </div>
+  </div>
+</div>
