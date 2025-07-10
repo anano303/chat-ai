@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "dist/browser/**/*",
+      "src": "dist/**/*",
       "use": "@vercel/static"
     },
     {
@@ -12,7 +12,7 @@
   ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/dist/browser/index.html" }
+    { "source": "/(.*)", "destination": "/dist/index.html" }
   ],
   "env": {
     "GOOGLE_AI_API_KEY": "${GOOGLE_AI_API_KEY}"
