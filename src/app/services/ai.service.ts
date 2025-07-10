@@ -6,7 +6,7 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class AiService {
-  private apiUrl = '/api/chat';
+  private apiUrl = 'https://chat-ai-one-henna.vercel.app/api/chat';
 
   constructor(private http: HttpClient) {}
 
